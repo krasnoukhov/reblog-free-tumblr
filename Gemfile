@@ -7,6 +7,7 @@ gem "rack-protection"
 gem "clogger"
 gem "tilt"
 gem "slim"
+gem "builder"
 gem "feedjira"
 
 group :test do

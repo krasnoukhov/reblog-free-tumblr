@@ -1,6 +1,7 @@
 require "cuba"
 require "cuba/render"
 require "slim"
+require "builder"
 require "securerandom"
 require "rack/protection"
 require "clogger"
