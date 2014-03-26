@@ -10,7 +10,9 @@ require "open-uri"
 # Cuba plugins
 Cuba.use Rack::Session::Cookie, secret: SecureRandom.hex(64)
 Cuba.use Rack::Protection
-Cuba.use Clogger, format: :Combined, path: "./log/requests.log", reentrant: true
+if ENV["RACK_ENV"] != "production"
+  Cuba.use Clogger, format: :Combined, path: "./log/requests.log", reentrant: true
+end
 Cuba.plugin Cuba::Render
 
 # Configuration
