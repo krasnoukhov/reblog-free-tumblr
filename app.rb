@@ -5,7 +5,6 @@ require "securerandom"
 require "rack/protection"
 require "clogger"
 require "feedjira"
-require "open-uri"
 
 # Cuba plugins
 Cuba.use Rack::Session::Cookie, secret: SecureRandom.hex(64)
@@ -27,10 +26,24 @@ Cuba.define do
   on ":username.rss" do |username|
     feed = Feedjira::Feed.fetch_and_parse("http://#{username}.tumblr.com/rss")
     if feed.respond_to?(:entries)
-      entries = feed.entries.delete_if do |entry|
-        contents = open(entry.url).read
-        contents =~ /reblogged (.*) ago from/i
+      reblogged = {}
+      multi = Curl::Multi.new
+
+      feed.entries.each do |entry|
+        easy = Curl::Easy.new(entry.url) do |curb|
+          curb.follow_location = true
+          curb.on_failure do
+            reblogged[entry.url] = true
+          end
+          curb.on_complete do |data|
+            reblogged[entry.url] = !!(data.body_str =~ /reblogged (.*) ago from/i)
+          end
+        end
+        multi.add(easy)
       end
+
+      multi.perform
+      entries = feed.entries.select { |entry| !reblogged[entry.url] }
 
       res.headers["Content-Type"] = "text/xml; charset=utf-8"
       res.write render("views/username.builder",
