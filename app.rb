@@ -37,7 +37,11 @@ Cuba.define do
             reblogged[entry.url] = true
           end
           curb.on_complete do |data|
-            reblogged[entry.url] = !!(data.body_str =~ /reblogged (.*) ago from/i)
+            begin
+              reblogged[entry.url] = (data.body_str =~ /reblogged (.*) ago from/i) || data.body_str.include?('class="reblog-link"')
+            rescue => e
+              puts e.inspect
+            end
           end
         end
         multi.add(easy)
