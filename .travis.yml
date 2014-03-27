@@ -1,7 +1,14 @@
-script: "bundle exec rake"
+script: bundle exec rake
 language: ruby
 rvm:
-  - 2.1.1
+- 2.1.1
 branches:
   only:
-    - master
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: P50CPZg9MPFQ5BSmfp4R7KPiVdMWdh/bzoCEz07mYV1zp/UOcv+nDogfc/zmH2y5i5hDPJ3wd8ge8Bq40sEikOVeqL8Y6frDpRsZAkFKnmvjUmLMQqnI/yjNaJeb5b/ZRwIMOJdLuCX1oYudugq7tQ5nz3H3IT9Ek5ecjCFU5gY=
+  app: reblog-free-tumblr
+  on:
+    repo: krasnoukhov/reblog-free-tumblr
