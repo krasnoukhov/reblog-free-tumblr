@@ -1,10 +1,19 @@
 doctype html
 html
   head
-    title Reblog-free Tumblr
+    title Reblog-Free Tumblr
     link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"
     link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"
     script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
+
+    meta property="og:type" content="website"
+    meta property="og:url" content="#{req.url}"
+    meta property="og:title" content="Reblog-Free Tumblr"
+    meta property="og:site_name" content="Reblog-Free Tumblr"
+    meta property="og:description" content="Tired of endless reblogs? Want to only read posts made by the blog author? Type a username and get reblog-free RSS link to the blog!"
+    meta property="og:image" content="http://assets.tumblr.com/images/default_avatar/cone_closed_128.png"
+    link rel="image_src" href="http://assets.tumblr.com/images/default_avatar/cone_closed_128.png"
+
     css:
       .form-group {
         position: relative;
@@ -47,13 +56,13 @@ html
     .container
       .page-header
         h1
-          | Reblog-free Tumblr
+          | Reblog-Free Tumblr
           | &nbsp;
           i.fa.fa-rocket
       .jumbotron
         h1 Tired of endless reblogs?
-        h2 Care to read only original posts?
-        h3 Put a username, get a RSS link containing no reblogs!
+        h2 Want to only read posts made by the blog author?
+        h3 Type a username and get reblog-free RSS link to the blog!
         form.form-inline id="rss"
           .form-group
             label.sr-only for="username" Username

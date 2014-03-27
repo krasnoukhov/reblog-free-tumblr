@@ -3,7 +3,7 @@ xml.rss(version: "2.0", :"xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
   xml.channel do
     xml.description feed.description
     xml.title "[Reblog-free] #{feed.title}"
-    xml.generator "Reblog-free Tumblr (1.0, @#{username})"
+    xml.generator "Reblog-Free Tumblr (1.0, @#{username})"
     xml.link feed.url
 
     if entries.any?
